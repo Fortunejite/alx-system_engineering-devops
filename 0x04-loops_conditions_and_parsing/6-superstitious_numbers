@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# This script is displaying "Best School" 10 times
+
+a=1
+while [ $a -le 20 ]
+do
+	case $a in
+		4) echo "bad luck from China";;
+		9) echo "bad luck from Japan";;
+		17) echo "bad luck from Italy";;
+		*) echo $a
+	esac
+	((a++))
+done
