@@ -10,5 +10,5 @@ do
 		echo "Hi"
 	fi
 		echo "Best School"
-	a=`expr $a + 1`
+		((i++))
 done
