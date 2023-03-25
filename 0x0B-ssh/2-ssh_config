@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#SSH configuraions for passwordless logins
+IdentyFile ~/.ssh/school
+PasswordAuthentication no
