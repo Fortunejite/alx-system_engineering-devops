@@ -1,3 +1,3 @@
 #kills killmeow
-exec {'pkill killmenow':
+exec {'/bin/pkill killmenow':
 }
