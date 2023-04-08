@@ -14,4 +14,4 @@ sudo sed -i 's/listen 80 default_server;/listen 80;/' /etc/nginx/sites-available
 sudo sh -c "echo 'Hello World!' > /var/www/html/index.html"
 
 # Restart Nginx
-service nginx start
+sudo service nginx start
