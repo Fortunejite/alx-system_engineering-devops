@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# Create a new user with sudo privileges
-sudo adduser myuser
-sudo usermod -aG sudo myuser
-
 # Configure a firewall
 sudo apt-get update
 sudo apt-get install -y ufw
