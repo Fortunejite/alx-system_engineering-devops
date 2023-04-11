@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 # Update system packages
-sudo apt update -y
-sudo apt upgrade -y
+sudo apt-get update -y
+sudo apt-get upgrade -y
 
 # Install Nginx
-sudo apt install nginx -y
+sudo apt-get install nginx -y
 
 # Configure Nginx
 sudo bash -c 'cat > /etc/nginx/sites-available/default << EOL
