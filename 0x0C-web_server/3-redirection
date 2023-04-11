@@ -4,8 +4,10 @@
 sudo apt-get update
 sudo apt-get install -y nginx
 
-echo "Hello World!" | sudo tee /var/www/html/index.html
-string_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/www.blog.ehoneahobed.com permanent;"
-sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
+echo "Hello World!" | sudo tee /var/www/cryptnex.tech/index.html
+string_for_replacement="server_name cryptnex.tech;\n\trewrite ^\/redirect_me https:\/\/www.blog.ehoneahobed.com permanent;"
+sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/cryptnex.tech
 
+echo "server {\n\tlisten 80;\n\troot /var/www/cryptnex.tech;\n\tserver_name cryptnex.tech;\n\tlocation /{\n\t\ttry_files $uri $uri/ =404;\n\t}\n}" > /etc/nginx/sites-enabled/cryptnex.tech
+ln -s /etc/nginx/sites-available/cryptnex.tech /etc/nginx/sites-enabled/
 sudo service nginx restart
