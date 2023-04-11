@@ -1,26 +1,28 @@
 #!/usr/bin/env bash
 
-# Configure a firewall
-sudo apt-get update
-sudo apt-get install -y ufw
-sudo ufw allow OpenSSH
-sudo ufw allow 'Nginx HTTP'
-sudo ufw enable
+# Update system packages
+sudo apt update -y
+sudo apt upgrade -y
 
-# Install necessary software packages and dependencies
-sudo apt-get update
-sudo apt-get install -y nginx
+# Install Nginx
+sudo apt install nginx -y
 
-# Set up necessary directories and permissions
-sudo mkdir /var/www/html
-sudo chown -R $USER:$USER /var/www/html
-sudo chmod -R 755 /var/www/html
+# Configure Nginx
+sudo bash -c 'cat > /etc/nginx/sites-available/default << EOL
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
 
-# Create a default index page that displays "Hello World!"
-sudo sh -c "echo 'Hello World!' > /var/www/html/index.html"
+    root /var/www/html;
+    index index.html;
 
-# Configure Nginx to listen on port 80
-sudo sed -i 's/listen 80 default_server;/listen 80;/' /etc/nginx/sites-available/default
+    server_name _;
+
+    location / {
+        return 200 "Hello World!";
+    }
+}
+EOL'
 
 # Restart Nginx
-sudo service nginx start
+sudo service nginx restart
