@@ -1,18 +1,14 @@
 #!/usr/bin/env bash
-#Configure your Nginx server to have a custom 404 page that contains the string
-
-sudo apt-get update
-sudo apt-get install -y nginx
-
-# code to redirect a specific endpoint (eg: redirect /redirect_me to https://blog.ehoneahobed.com)
-echo "Hello World!" | sudo tee /var/www/html/index.html
-string_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/www.blog.ehoneahobed.com permanent;"
-sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
-
-# code to create error page and add a redirect for error 404
-echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
-string_for_replacement="server_name _;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
-sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
-
-# restart the server
+#installs nginx and redirects to video and custom 404
+sudo apt-get -y update
+sudo apt-get -y install nginx
+file1=/usr/share/nginx/html/index.html
+file=/etc/nginx/sites-available/default
+sudo bash -c "echo 'Hello World!' > $file1"
+service nginx start
+phrase="location /redirect_me {\nreturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n}\n"
+sudo sed -i "30i $phrase" $file
+echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/custom_404.html
+phrase2="error_page 404 /custom_404.html;\nlocation = /custom_404.html {\nroot /usr/share/nginx/html;\ninternal;\n}\n"
+sudo sed -i "30i $phrase2" $file
 sudo service nginx restart
