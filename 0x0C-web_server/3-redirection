@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
-# Script that configures a new Ubuntu machine to respect above requirements
-
-sudo apt-get update
-sudo apt-get install -y nginx
-
-echo "Hello World!" | sudo tee /var/www/cryptnex.tech/index.html
-
-echo "server {\n\tlisten 80;\n\troot /var/www/cryptnex.tech;\n\tserver_name cryptnex.tech;\n\tlocation /{\n\t\troot /var/www/cryptnex.tech;\n\t\ttry_files  index.html=404;\n\t}\n}" > /etc/nginx/sites-available/cryptnex.tech
-string_for_replacement="server_name cryptnex.tech;\n\trewrite ^\/redirect_me https:\/\/www.blog.ehoneahobed.com permanent;"
-sudo sed -i "s/server_name cryptnex.tech;/$string_for_replacement/" /etc/nginx/sites-available/cryptnex.tech
-ln -sf /etc/nginx/sites-available/cryptnex.tech /etc/nginx/sites-enabled/
+#installs nginx and redirects to holberton school string
+sudo apt-get -y update
+sudo apt-get -y install nginx
+file1=/usr/share/nginx/html/index.html
+file=/etc/nginx/sites-available/default
+sudo bash -c "echo 'Hello World!' > $file1"
+service nginx start
+phrase="location /redirect_me {\nreturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n}\n"
+sudo sed -i "30i $phrase" $file
 sudo service nginx restart
