@@ -13,6 +13,6 @@ sudo echo -e "backend nodes
 \tbalance roundrobin
 \toption forwardfor
 \thttp-request set-header X-Forwarded-Port %[dst_port]
-\tserver 274-web-01 35.231.71.122:80 check
-\tserver 274-web-02 35.196.73.169:80 check" | sudo tee -a $file
+\tserver 117068-web-01 18.235.255.210:80 check
+\tserver 117068-web-02 34.207.227.241:80 check" | sudo tee -a $file
 sudo service haproxy restart
