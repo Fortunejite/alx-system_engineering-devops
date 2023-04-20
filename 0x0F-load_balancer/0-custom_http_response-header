@@ -1,7 +1,16 @@
 #!/usr/bin/env bash
-#sets up custom header
-sudo apt-get -y
-sudo apt-get -y install nginx
-file="/etc/nginx/sites-available/default"
-sudo sed -i "21i add_header X-Served-By $HOSTNAME;" $file
-sudo service nginx restart
+#sets up load balancers
+sudo apt install -y haproxy=1.5\*
+file=/etc/haproxy/haproxy.cfg
+sudo echo -e "frontend haproxynode
+\tbind *:80
+\tmode http
+\tdefault_backend nodes" | sudo tee -a $file
+sudo echo -e "backend nodes
+\tmode http
+\tbalance roundrobin
+\toption forwardfor
+\thttp-request set-header X-Forwarded-Port %[dst_port]
+\tserver 117068-web-01 18.235.255.210:80 check
+\tserver 117068-web-02 34.207.227.241:80 check" | sudo tee -a $file
+sudo service haproxy restart
