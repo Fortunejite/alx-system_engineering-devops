@@ -3,9 +3,9 @@
 
 
 if __name__ == '__main__':
+    import json
     import requests
     import sys
-    import json
 
     id = sys.argv[1]
     id = int(id)
