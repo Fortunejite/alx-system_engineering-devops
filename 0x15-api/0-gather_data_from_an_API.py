@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Gets the TODO lists of an employee in a predefines url"""
 
-import json
 import requests
 import sys
 
@@ -16,16 +15,14 @@ if __name__ == '__main__':
         print("Error: Employee ID must be an integer.")
         sys.exit(1)
 
-    todo = []
-    uri = 'https://jsonplaceholder.typicode.com/users/{}'.format(id)
-    result = requests.get(uri).json()
-    name = result['name']
-    uri = 'https://jsonplaceholder.typicode.com/todos?userId={}'.format(id)
-    result = requests.get(uri).json()
-    todo = result
+    user_uri = 'https://jsonplaceholder.typicode.com/users/{}'.format(id)
+    todo_uri = 'https://jsonplaceholder.typicode.com/todos?userId={}'.format(id)
+    user = requests.get(user_uri).json()
+    name = user['name']
+    todos = requests.get(todo_uri).json()
 
-    completed = [i for i in todo if i['completed']]
-    out = 'Employee {} is done with tasks({}/{}):'.format(name, len(completed), len(todo))
+    completed = [i for i in todos if i['completed']]
+    out = 'Employee {} is done with tasks({}/{}):'.format(name, len(completed), len(todos))
     print(out)
 
     for i in completed:
