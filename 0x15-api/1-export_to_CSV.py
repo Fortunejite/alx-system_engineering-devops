@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Gets the TODO lists of an employee in a predefines url"""
+"""Exports to-do list information for a given employee ID to CSV format."""
 
 
 if __name__ == '__main__':
