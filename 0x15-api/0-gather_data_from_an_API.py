@@ -30,4 +30,4 @@ if __name__ == '__main__':
 
     for i in completed:
         title = i.get('title')
-        print(f'\t {title}')
+        print(f'\t {}'.format(title))
