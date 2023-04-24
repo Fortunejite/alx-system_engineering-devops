@@ -4,13 +4,11 @@
 
 if __name__ == '__main__':
     import requests
-    import sys, json
-    
+    import sys
+    import json
+
     id = sys.argv[1]
-    try:
-        id = int(id)
-    except:
-        pass
+    id = int(id)s
     todo = []
     uri = f'https://jsonplaceholder.typicode.com/users/{id}'
     result = requests.get(uri)
@@ -27,7 +25,7 @@ if __name__ == '__main__':
 
     completed = []
     for i in todo:
-        if i['completed'] == True:
+        if i['completed'] is True:
             completed.append(i)
 
     out = f'Employee {name} is done with tasks({len(completed)}/{len(todo)}):'
