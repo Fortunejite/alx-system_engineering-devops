@@ -8,7 +8,7 @@ if __name__ == '__main__':
     import json
 
     id = sys.argv[1]
-    id = int(id)s
+    id = int(id)
     todo = []
     uri = f'https://jsonplaceholder.typicode.com/users/{id}'
     result = requests.get(uri)
