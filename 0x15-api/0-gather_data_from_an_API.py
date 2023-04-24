@@ -20,7 +20,7 @@ if __name__ == '__main__':
     uri = 'https://jsonplaceholder.typicode.com/users/{}'.format(id)
     result = requests.get(uri).json()
     name = result['name']
-    uri = f'https://jsonplaceholder.typicode.com/todos?userId={id}'
+    uri = 'https://jsonplaceholder.typicode.com/todos?userId={}'.format(id)
     result = requests.get(uri).json()
     todo = result
 
