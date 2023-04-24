@@ -25,7 +25,7 @@ if __name__ == '__main__':
     todo = result
 
     completed = [i for i in todo if i['completed']]
-    out = f'Employee {name} is done with tasks({len(completed)}/{len(todo)}):'
+    out = 'Employee {} is done with tasks({}/{}):'.format(name, len(completed), len(todo))
     print(out)
 
     for i in completed:
