@@ -1,33 +1,30 @@
 #!/usr/bin/python3
 """Gets the TODO lists of an employee in a predefines url"""
 
+import json
+import requests
+import sys
 
 if __name__ == '__main__':
-    import json
-    import requests
-    import sys
+    if len(sys.argv) < 2:
+        print("Error: Please provide an employee ID as a command-line argument.")
+        sys.exit(1)
 
-    id = sys.argv[1]
-    id = int(id)
+    try:
+        id = int(sys.argv[1])
+    except ValueError:
+        print("Error: Employee ID must be an integer.")
+        sys.exit(1)
+
     todo = []
     uri = f'https://jsonplaceholder.typicode.com/users/{id}'
-    result = requests.get(uri)
-    result = result.text
-    result = json.loads(result)
+    result = requests.get(uri).json()
     name = result['name']
-    uri = f'https://jsonplaceholder.typicode.com/todos/'
-    result = requests.get(uri)
-    result = result.text
-    result = json.loads(result)
-    for i in result:
-        if i['userId'] == id:
-            todo.append(i)
+    uri = f'https://jsonplaceholder.typicode.com/todos?userId={id}'
+    result = requests.get(uri).json()
+    todo = result
 
-    completed = []
-    for i in todo:
-        if i['completed'] is True:
-            completed.append(i)
-
+    completed = [i for i in todo if i['completed']]
     out = f'Employee {name} is done with tasks({len(completed)}/{len(todo)}):'
     print(out)
 
