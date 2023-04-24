@@ -17,7 +17,7 @@ if __name__ == '__main__':
         sys.exit(1)
 
     todo = []
-    uri = f'https://jsonplaceholder.typicode.com/users/{id}'
+    uri = 'https://jsonplaceholder.typicode.com/users/{}'.format(id)
     result = requests.get(uri).json()
     name = result['name']
     uri = f'https://jsonplaceholder.typicode.com/todos?userId={id}'
